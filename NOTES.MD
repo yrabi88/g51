@@ -1,3 +1,6 @@
+endpoint:
+https://garage51-368097635893.europe-west1.run.app
+
 # Apps Todo
 * goodstuff - recommend movies, music, tv shows
 * watchlist
