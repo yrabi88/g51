@@ -1,0 +1,9 @@
+{
+  "/_not-found/page": "app/_not-found/page.js",
+  "/page": "app/page.js",
+  "/shmoney/api/expenses/route": "app/shmoney/api/expenses/route.js",
+  "/shmoney/api/expenses/[id]/route": "app/shmoney/api/expenses/[id]/route.js",
+  "/shmoney/page": "app/shmoney/page.js",
+  "/icon.png/route": "app/icon.png/route.js",
+  "/shmoney/icon/route": "app/shmoney/icon/route.js"
+}

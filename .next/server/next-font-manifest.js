@@ -1,0 +1,1 @@
+self.__NEXT_FONT_MANIFEST='{"pages":{},"app":{"/Users/yakir/mydev/garage51-nextjs/app/layout":["static/media/eafabf029ad39a43-s.p.woff2","static/media/7ac2f4d891556379.p.woff2"]},"appUsingSizeAdjust":true,"pagesUsingSizeAdjust":false}';

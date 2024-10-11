@@ -1,0 +1,48 @@
+{
+  "version": 3,
+  "middleware": {},
+  "functions": {
+    "/shmoney/icon/route": {
+      "files": [
+        "server/middleware-build-manifest.js",
+        "server/middleware-react-loadable-manifest.js",
+        "server/next-font-manifest.js",
+        "server/interception-route-rewrite-manifest.js",
+        "server/edge-runtime-webpack.js",
+        "server/app/shmoney/icon/route.js"
+      ],
+      "name": "app/shmoney/icon/route",
+      "page": "/shmoney/icon/route",
+      "matchers": [
+        {
+          "regexp": "^/shmoney/icon$",
+          "originalSource": "/shmoney/icon"
+        }
+      ],
+      "wasm": [
+        {
+          "name": "wasm_77d9faebf7af9e421806970ce10a58e9d83116d7",
+          "filePath": "server/edge-chunks/wasm_77d9faebf7af9e421806970ce10a58e9d83116d7.wasm"
+        },
+        {
+          "name": "wasm_ef4866ecae192fd87727067cf2c0c0cf9fb8b020",
+          "filePath": "server/edge-chunks/wasm_ef4866ecae192fd87727067cf2c0c0cf9fb8b020.wasm"
+        }
+      ],
+      "assets": [
+        {
+          "name": "noto-sans-v27-latin-regular.5dda3fca77107598.ttf",
+          "filePath": "server/edge-chunks/asset_noto-sans-v27-latin-regular.5dda3fca77107598.ttf"
+        }
+      ],
+      "env": {
+        "__NEXT_BUILD_ID": "6a3hAVinPz4AnfSb6n5_A",
+        "NEXT_SERVER_ACTIONS_ENCRYPTION_KEY": "DYvWnk0eKEZ5AdOL01hnRjPiiyCm0REy6qjIaAqtgFg=",
+        "__NEXT_PREVIEW_MODE_ID": "51a11ab647ff17c691dd0c22adce7372",
+        "__NEXT_PREVIEW_MODE_ENCRYPTION_KEY": "bf053d96df15910fe0f3ba29b12dc57ee02e869e8589bb1df997b7fcbe449992",
+        "__NEXT_PREVIEW_MODE_SIGNING_KEY": "adf2447034f78fe565f36b22f2f048cb948f28d17419f419107f9ff64d07b91d"
+      }
+    }
+  },
+  "sortedMiddleware": []
+}

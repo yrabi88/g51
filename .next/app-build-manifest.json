@@ -1,0 +1,34 @@
+{
+  "pages": {
+    "/_not-found/page": [
+      "static/chunks/webpack-2167a193474cb4ad.js",
+      "static/chunks/fd9d1056-aa94ea5c2eabf904.js",
+      "static/chunks/117-010f5c67a96d64ec.js",
+      "static/chunks/main-app-ea8d3a818bd319c8.js",
+      "static/chunks/app/_not-found/page-eaa53ae320539b27.js"
+    ],
+    "/layout": [
+      "static/chunks/webpack-2167a193474cb4ad.js",
+      "static/chunks/fd9d1056-aa94ea5c2eabf904.js",
+      "static/chunks/117-010f5c67a96d64ec.js",
+      "static/chunks/main-app-ea8d3a818bd319c8.js",
+      "static/css/aa018fb2bf05cc06.css",
+      "static/chunks/app/layout-2a5effb2fa6f171d.js"
+    ],
+    "/page": [
+      "static/chunks/webpack-2167a193474cb4ad.js",
+      "static/chunks/fd9d1056-aa94ea5c2eabf904.js",
+      "static/chunks/117-010f5c67a96d64ec.js",
+      "static/chunks/main-app-ea8d3a818bd319c8.js",
+      "static/chunks/app/page-0a8b9a7b052e6eac.js"
+    ],
+    "/shmoney/page": [
+      "static/chunks/webpack-2167a193474cb4ad.js",
+      "static/chunks/fd9d1056-aa94ea5c2eabf904.js",
+      "static/chunks/117-010f5c67a96d64ec.js",
+      "static/chunks/main-app-ea8d3a818bd319c8.js",
+      "static/css/75c643b1b8401c37.css",
+      "static/chunks/app/shmoney/page-d96272b89e828865.js"
+    ]
+  }
+}
