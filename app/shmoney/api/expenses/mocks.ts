@@ -23,7 +23,10 @@ export const expenses: Expense[] = [
     createExpense('2', 'aya', 'Plants', 320, CurrencyId.ILS,
         new Date(Date.now() - 3600000 * 30),
     ),
-    createExpense('2', 'aya', 'Honey', 28, CurrencyId.ILS,
+    createExpense('3', 'aya', 'Honey', 28, CurrencyId.ILS,
         new Date(Date.now() - 3600000 * 31),
+    ),
+    createExpense('4', 'yakir', 'Cow', 28, CurrencyId.ILS,
+        new Date(Date.now() - 3600000 * 48),
     ),
 ]
