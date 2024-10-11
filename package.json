@@ -5,6 +5,7 @@
   "scripts": {
     "dev": "next dev",
     "build": "next build",
+    "gcp-build": "yarn build",
     "start": "next start",
     "lint": "next lint",
     "predeploy": "yarn build",

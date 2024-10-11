@@ -1,3 +1,8 @@
+
+docker run -d --name g51-3 --platform linux/amd64 --entrypoint sh IMAGE_NAME -c "tail -f /dev/null"
+docker run -d --name g51-3 --platform linux/amd64 --entrypoint sh 866a9bcb108d -c "tail -f /dev/null"
+docker exec -it g51-3 /bin/bash
+
 endpoint:
 https://garage51-368097635893.europe-west1.run.app
 
@@ -12,6 +17,7 @@ https://garage51-368097635893.europe-west1.run.app
 ```
 [20] europe-west3
 To make this the default region, run `gcloud config set run/region europe-west3`.
+To unset:, run `gcloud config unset run/region`.
 ```
 
 g51 - firestore
@@ -140,6 +146,7 @@ Unexpected error. Please report it as a bug:
 
 ### Step1: Setup auth for docker (Only once)
 `gcloud auth configure-docker europe-west3-docker.pkg.dev`
+`gcloud auth configure-docker europe-west1-docker.pkg.dev`
 
 ```
 Adding credentials for: europe-west3-docker.pkg.dev
@@ -165,6 +172,7 @@ Linux: $HOME/.docker/config.json
 Run this command:
 ```
 gcloud run services describe g51-nextjs --format='value(image)'
+gcloud run services describe g51-nextjs-prod --format='value(image)'
 ```
 Result:
 ```
@@ -175,6 +183,10 @@ europe-west3-docker.pkg.dev/garage51/cloud-run-source-deploy/g51-nextjs@sha256:9
 
 ```
 docker pull europe-west3-docker.pkg.dev/garage51/cloud-run-source-deploy/g51-nextjs@sha256:913809bd061550662c853d5b9f1c30801109ffa302ae93cc4315640ba5b785bf
+```
+
+```
+docker pull europe-west1-docker.pkg.dev/garage51/cloud-run-source-deploy/garage51/g51-nextjs-prod:8b61702a1499c355af04a552fc0ce87488c2458d
 ```
 
 ### Step 4: View the image using docker:
