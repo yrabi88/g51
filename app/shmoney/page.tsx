@@ -2,6 +2,9 @@ import shmoneyApiClient from './api/shmoneyApiClient'
 import ExpenseRow from './comps/ExpenseRow'
 import styles from './styles.module.css';
 
+export const dynamic = 'force-dynamic'
+// 'auto' | 'force-dynamic' | 'error' | 'force-static'
+
 export default async function Page() {
     const expenses = await shmoneyApiClient.getExpenses()
 
