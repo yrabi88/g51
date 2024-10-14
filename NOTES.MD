@@ -3,14 +3,22 @@ https://nextjs.org/docs/pages/api-reference/next-config-js/output
 
 ```
 // build image:
-docker build -t gta:1.0 .
+docker build -t gta .
 
 // run container:
-INNER_PORT=3000 && docker run --name gta-ctr1 -d -p 9090:$INNER_PORT -e PORT=$INNER_PORT gta
+INNER_PORT=3000 && docker run \
+--name gta-ctr1 \
+-d \
+-p 3001:$INNER_PORT \
+-e PORT=$INNER_PORT \
+gta
 
 // run "idle" container (override entrypoint)
 docker run -d --name gta-idle1 --entrypoint sh gta -c "tail -f /dev/null"
 docker exec -it gta-ctr /bin/sh
+
+// stop and remove container
+CTRNAME=gta-ctr1 && docker stop $CTRNAME && docker rm $CTRNAME
 
 // flag for cloud platform
 --platform linux/amd64

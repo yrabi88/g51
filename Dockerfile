@@ -40,5 +40,11 @@ COPY --from=builder --chown=nodegrp:nodeuser /app/.next/static ./.next/static
 USER nodeuser
  
 ENV PORT=3000
+
+# Setting the HOSTNAME is somehow required for binding the server to 0.0.0.0 (even though it is the default value).
+# This allows to make requests to the API inside the container.
+# This is mostly needed for data fetching from the API by server components.
+ENV HOSTNAME=0.0.0.0
+
 EXPOSE $PORT
 CMD ["node", "server.js"]
