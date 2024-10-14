@@ -1,7 +1,20 @@
+todo!!!! check nextjs standalone output docs!
+https://nextjs.org/docs/pages/api-reference/next-config-js/output
 
-docker run -d --name g51-3 --platform linux/amd64 --entrypoint sh IMAGE_NAME -c "tail -f /dev/null"
-docker run -d --name g51-3 --platform linux/amd64 --entrypoint sh 866a9bcb108d -c "tail -f /dev/null"
-docker exec -it g51-3 /bin/bash
+```
+// build image:
+docker build -t gta:1.0 .
+
+// run container:
+INNER_PORT=3000 && docker run --name gta-ctr1 -d -p 9090:$INNER_PORT -e PORT=$INNER_PORT gta
+
+// run "idle" container (override entrypoint)
+docker run -d --name gta-idle1 --entrypoint sh gta -c "tail -f /dev/null"
+docker exec -it gta-ctr /bin/sh
+
+// flag for cloud platform
+--platform linux/amd64
+```
 
 endpoint:
 https://garage51-368097635893.europe-west1.run.app
