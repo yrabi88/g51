@@ -1,3 +1,34 @@
+providing service-account key to local dev server:
+https://cloud.google.com/docs/authentication/provide-credentials-adc#local-key
+
+key path:
+/Users/yakir/mydev/maftehot/garage51-d47fb3e0f17d.json
+
+firestore:
+
+database ID: garage51-db
+region: europe-west1
+
+rules:
+```
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    match /{document=**} {
+      allow read, write: if false;
+    }
+  }
+}
+```
+
+Firestore roles here:
+https://cloud.google.com/firestore/docs/security/iam
+
+service account
+roles:
+  - roles/datastore.user
+
+
 todo!!!! check nextjs standalone output docs!
 https://nextjs.org/docs/pages/api-reference/next-config-js/output
 
