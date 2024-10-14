@@ -8,7 +8,10 @@
     "start": "next start",
     "lint": "next lint",
     "predeploy": "yarn build",
-    "deploy": "gcloud run deploy $npm_package_name --source ."
+    "deploy": "gcloud run deploy $npm_package_name --source .",
+    "docker:build": "docker build -t g51 .",
+    "docker:run": "OUTER_PORT=3001 INNER_PORT=3000 && docker run --name g51-ctr-1 -d -p $OUTER_PORT:$INNER_PORT -e PORT=$INNER_PORT g51",
+    "docker:stop-rm": "CTRNAME=g51-ctr-1 && docker stop $CTRNAME && docker rm $CTRNAME"
   },
   "dependencies": {
     "react": "^18",
