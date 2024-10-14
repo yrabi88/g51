@@ -1,3 +1,6 @@
+# Create by this guide:
+# https://www.txconsole.com/posts/how-to-containerize-nextjs-app-with-docker-build
+
 FROM node:20-alpine as deps
  
 RUN apk add --no-cache libc6-compat
