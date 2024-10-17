@@ -1,0 +1,10 @@
+Type 	Host	Answer	TTL	Priority	Options
+
+ALIAS	garage51.top	pixie.porkbun.com	600		
+ 
+CNAME	*.garage51.top	pixie.porkbun.com	600		
+ 
+TXT	_acme-challenge.garage51.top	QvWcGNaoXMAIIoSJmh8Bnsao2Jy7H6sEgJ7hooDqOzs	600		
+ 
+TXT	_acme-challenge.garage51.top	jGSolemHSAsYearnXdHLL8UF7q91YpMDWyQG2WuCUUA	600		
+ 

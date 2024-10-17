@@ -1,7 +1,7 @@
 # Create by this guide:
 # https://www.txconsole.com/posts/how-to-containerize-nextjs-app-with-docker-build
 
-FROM node:20-alpine as deps
+FROM node:20-alpine AS deps
  
 RUN apk add --no-cache libc6-compat
 WORKDIR /app
@@ -11,20 +11,20 @@ COPY package.json package-lock.json ./
 RUN yarn install --frozen-lockfile
 
  
-FROM node:20-alpine as builder
+FROM node:20-alpine AS builder
 WORKDIR /app
 COPY --from=deps /app/node_modules ./node_modules
 COPY . .
  
-ENV NEXT_TELEMETRY_DISABLED 1
+ENV NEXT_TELEMETRY_DISABLED=1
 ARG PUBLIC_APP_NAME=garage51
 ENV NEXT_PUBLIC_APP_NAME=$PUBLIC_APP_NAME
 RUN yarn run build
 
-FROM node:20-alpine as runner
+FROM node:20-alpine AS runner
 WORKDIR /app
-ENV NODE_ENV production
-ENV NEXT_TELEMETRY_DISABLED 1
+ENV NODE_ENV=production
+ENV NEXT_TELEMETRY_DISABLED=1
  
 RUN addgroup --system --gid 1001 nodegrp
 RUN adduser --system --uid 1001 nodeuser
