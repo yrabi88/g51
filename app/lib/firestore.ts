@@ -1,5 +1,26 @@
-import  { Firestore }from '@google-cloud/firestore';
-// const {Firestore} = require('@google-cloud/firestore');
+import  { Firestore }from '@google-cloud/firestore'
+import { initializeApp } from 'firebase-admin/app'
+// import { App as FirebaseApp, initializeApp } from 'firebase-admin/app'
+
+type CustomGlobalKey = string | number | symbol
+type CustomGlobal = Record<CustomGlobalKey, unknown>
+const customGlobal = globalThis as CustomGlobal
+
+const uniqueKey = Symbol.for('firebaseApp')
+
+// let firebaseApp: FirebaseApp
+
+export function initFirebaseApp() {
+  console.log('initFirebaseApp: checking')
+  if (!customGlobal[uniqueKey]){
+    console.log('initFirebaseApp: CREATE !!!!!!!!')
+    // customGlobal[uniqueKey] = initializeApp()
+    initializeApp()
+    customGlobal[uniqueKey] = true
+  }
+}
+
+initFirebaseApp()
 
 // Create a new client
 export const firestore = new Firestore({
@@ -28,8 +49,8 @@ export async function quickstartFirestore() {
   console.log('Read the document');
 
   // Delete the document.
-//   await document.delete();
-//   console.log('Deleted the document');
+  await document.delete();
+  console.log('Deleted the document');
 
   return doc
 }

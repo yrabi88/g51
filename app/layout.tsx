@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 // import localFont from "next/font/local";
 import { Sixtyfour, Poppins } from 'next/font/google'
 import "./globals.css";
+import './lib/firestore'
 
 const sixtyfour = Sixtyfour({
   subsets: ['latin'],

@@ -5,7 +5,7 @@ FROM node:20-alpine AS deps
  
 RUN apk add --no-cache libc6-compat
 WORKDIR /app
-COPY package.json package-lock.json ./
+COPY package.json package-lock.json yarn.lock ./
 # RUN npm install --frozen-lockfile
 # RUN npm ci
 RUN yarn install --frozen-lockfile
@@ -39,6 +39,9 @@ COPY --from=builder /app/package.json ./package.json
 # Automatically leverage output traces to reduce image size
 COPY --from=builder --chown=nodeuser:nodegrp /app/.next/standalone ./
 COPY --from=builder --chown=nodeuser:nodegrp /app/.next/static ./.next/static
+
+# to run docker container locally, uncomment this line
+# COPY firestore-key.json .env.local ./
  
 USER nodeuser
  
