@@ -41,7 +41,7 @@ COPY --from=builder --chown=nodeuser:nodegrp /app/.next/standalone ./
 COPY --from=builder --chown=nodeuser:nodegrp /app/.next/static ./.next/static
 
 # to run docker container locally, uncomment this line
-# COPY firestore-key.json .env.local ./
+# COPY service-account-key.json .env.local ./
  
 USER nodeuser
  
