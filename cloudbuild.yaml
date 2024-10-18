@@ -1,6 +1,6 @@
 steps:
 - name: 'docker'
-  args: ['build', '-t', 'europe-west1-docker.pkg.dev/$PROJECT_ID/$BRANCH_NAME:$SHORT_SHA', '.']
+  args: ['build', '-t', 'gcr.io/$PROJECT_ID/$BRANCH_NAME:$SHORT_SHA', '.']
 serviceAccount: '$SERVICE_ACCOUNT'
 options:
   logging: CLOUD_LOGGING_ONLY
