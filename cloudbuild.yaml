@@ -10,8 +10,7 @@ steps:
     echo done! successfully provided service-account key.
   secretEnv: ['SERVICE_ACCOUNT_KEY_JSON']
 
-
-  - name: 'gcr.io/cloud-builders/docker'
+  - name: 'docker'
     id: 'docker build'
     script: |
       echo starting docker build
