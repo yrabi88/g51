@@ -1,6 +1,17 @@
 steps:
+
+- name: 'bash'
+  script: echo $$SERVICE_ACCOUNT_KEY_JSON > sa_key.json
+  secretEnv: ['SERVICE_ACCOUNT_KEY_JSON']
+- name: 'bash'
+  script: echo GOOGLE_APPLICATION_CREDENTIALS=sa_key.json > .env.local
 - name: 'docker'
   args: ['build', '-t', 'gcr.io/$PROJECT_ID/$BRANCH_NAME:$SHORT_SHA', '.']
 serviceAccount: '$SERVICE_ACCOUNT'
 options:
   logging: CLOUD_LOGGING_ONLY
+  automapSubstitutions: true
+availableSecrets:
+  secretManager:
+  - versionName: projects/$PROJECT_ID/secrets/g51-build-sa-key/versions/1
+    env: 'SERVICE_ACCOUNT_KEY_JSON'
