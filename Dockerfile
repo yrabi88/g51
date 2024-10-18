@@ -15,10 +15,15 @@ FROM node:20-alpine AS builder
 WORKDIR /app
 COPY --from=deps /app/node_modules ./node_modules
 COPY . .
+
+# Work only on google cloud build
+# COPY /workspace/sa_key.json ./
  
 ENV NEXT_TELEMETRY_DISABLED=1
 ARG PUBLIC_APP_NAME=garage51
 ENV NEXT_PUBLIC_APP_NAME=$PUBLIC_APP_NAME
+ENV GOOGLE_APPLICATION_CREDENTIALS=sa_key.json
+
 RUN yarn run build
 
 FROM node:20-alpine AS runner
@@ -40,15 +45,11 @@ COPY --from=builder /app/package.json ./package.json
 COPY --from=builder --chown=nodeuser:nodegrp /app/.next/standalone ./
 COPY --from=builder --chown=nodeuser:nodegrp /app/.next/static ./.next/static
 
-# Work only on google cloud build
-COPY /workspace/sa_key.json ./
-
 # to run docker container locally, uncomment this line
 # COPY service-account-key.json .env.local ./
  
 USER nodeuser
- 
-ENV GOOGLE_APPLICATION_CREDENTIALS=sa_key.json
+
 ENV PORT=3000
 
 # Setting the HOSTNAME is somehow required for binding the server to 0.0.0.0 (even though it is the default value).
