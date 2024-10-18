@@ -1,23 +1,26 @@
 steps:
 
 - name: 'bash'
-  id: create sa_key file
-  script: echo $$SERVICE_ACCOUNT_KEY_JSON > sa_key.json
-  secretEnv: ['SERVICE_ACCOUNT_KEY_JSON']
+  id: create mock sa_key file
+  script: echo project_id is mock_garage51 > sa_key.json
+# - name: 'bash'
+#   id: create sa_key file
+#   script: echo $$SERVICE_ACCOUNT_KEY_JSON > sa_key.json
+#   secretEnv: ['SERVICE_ACCOUNT_KEY_JSON']
 - name: 'bash'
   id: create env file
   script: echo GOOGLE_APPLICATION_CREDENTIALS=sa_key.json > .env.local
-- name: 'bash'
-  id: cat both files
-  script: |
-    cat sa_key.json | grep project_id
-    cat .env.local
 - name: 'bash'
   id: cat sa_key only
   script: cat sa_key.json | grep project_id
 - name: 'bash'
   id: cat env only
   script: cat .env.local
+- name: 'bash'
+  id: cat both files
+  script: |
+    cat sa_key.json | grep project_id
+    cat .env.local
 # - name: 'docker'
 #   args: ['build', '-t', 'gcr.io/$PROJECT_ID/$BRANCH_NAME:$SHORT_SHA', '.']
 serviceAccount: '$SERVICE_ACCOUNT'
