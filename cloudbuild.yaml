@@ -11,7 +11,7 @@ steps:
 
 - name: 'bash'
   id: cat mock secret
-  script: echo $$SERVICE_ACCOUNT_KEY_JSON
+  script: echo $SERVICE_ACCOUNT_KEY_JSON
   secretEnv: ['SERVICE_ACCOUNT_KEY_JSON']
 
 - name: 'bash'
