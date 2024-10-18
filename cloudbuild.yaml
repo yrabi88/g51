@@ -10,17 +10,6 @@ steps:
     echo done! successfully provided service-account key.
   secretEnv: ['SERVICE_ACCOUNT_KEY_JSON']
 
-  # - name: 'docker'
-  #   id: docker build
-  #   script: |
-  #     echo starting docker build
-  #     echo current dir: $(pwd)
-  #     echo list directories:
-  #     ls -la
-  #     cp /workspace/sa_key.json ./
-  #     copied key to current folder
-  #     docker build -t gcr.io/$PROJECT_ID/$BRANCH_NAME:$SHORT_SHA .
-
 - name: 'docker'
   args: ['build', '-t', 'gcr.io/$PROJECT_ID/$BRANCH_NAME:$SHORT_SHA', '.']
 
