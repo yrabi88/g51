@@ -13,9 +13,9 @@ steps:
 - name: 'bash'
   id: cat mock_sa_key only
   script: cat mock_sa_key.json | grep project_id
-- name: 'bash'
-  id: cat sa_key only
-  script: cat sa_key.json | grep project_id
+# - name: 'bash'
+#   id: cat sa_key only
+#   script: cat sa_key.json | grep project_id
 - name: 'bash'
   id: cat env only
   script: cat .env.local
@@ -24,7 +24,6 @@ steps:
   script: |
     cat .env.local
     cat mock_sa_key.json | grep project_id
-    cat sa_key.json | grep project_id
 # - name: 'docker'
 #   args: ['build', '-t', 'gcr.io/$PROJECT_ID/$BRANCH_NAME:$SHORT_SHA', '.']
 serviceAccount: '$SERVICE_ACCOUNT'
