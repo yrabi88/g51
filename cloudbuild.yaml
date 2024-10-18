@@ -9,19 +9,19 @@ steps:
 #   script: echo $$SERVICE_ACCOUNT_KEY_JSON > sa_key.json
 #   secretEnv: ['SERVICE_ACCOUNT_KEY_JSON']
 
-- name: 'bash'
-  id: cat mock secret
-  script: echo $SERVICE_ACCOUNT_KEY_JSON
-  secretEnv: ['SERVICE_ACCOUNT_KEY_JSON']
+# - name: 'bash'
+#   id: cat mock secret
+#   script: echo $SERVICE_ACCOUNT_KEY_JSON
+#   secretEnv: ['SERVICE_ACCOUNT_KEY_JSON']
 
-- name: 'bash'
-  id: create mock sa_key file from mock secret
-  script: echo project_id_is_mock_g51 > sa_key.json
+# - name: 'bash'
+#   id: create mock sa_key file from mock secret
+#   script: echo project_id_is_mock_g51 > sa_key.json
   # secretEnv: ['SERVICE_ACCOUNT_KEY_JSON']
 
-- name: 'bash'
-  id: create env file
-  script: echo GOOGLE_APPLICATION_CREDENTIALS=sa_key.json > .env.local
+# - name: 'bash'
+#   id: create env file
+#   script: echo GOOGLE_APPLICATION_CREDENTIALS=sa_key.json > .env.local
 
 # - name: 'bash'
 #   id: cat mock_sa_key only
@@ -31,9 +31,9 @@ steps:
 #   id: cat sa_key only
 #   script: cat sa_key.json | grep project_id
 
-- name: 'bash'
-  id: cat env only
-  script: cat .env.local
+# - name: 'bash'
+#   id: cat env only
+#   script: cat .env.local
 
 # - name: 'bash'
 #   id: cat all files
@@ -41,12 +41,20 @@ steps:
 #     cat .env.local
 #     cat mock_sa_key.json | grep project_id
 
-# - name: 'bash'
-#   id: setup credentials
-#   script: |
-#     echo project_id is mock_garage51 > mock_sa_key.json
-#     echo $$SERVICE_ACCOUNT_KEY_JSON | grep project_id
-#   secretEnv: ['SERVICE_ACCOUNT_KEY_JSON']
+- name: 'bash'
+  id: provide service account key
+  script: |
+    echo about to provide service-account key.
+    echo $SERVICE_ACCOUNT_KEY_JSON > sa_key.json
+    echo created key file.
+    echo GOOGLE_APPLICATION_CREDENTIALS=sa_key.json > .env
+    echo created env file.
+    echo key file:
+    cat sa_key.json | grep project_id
+    echo env file:
+    cat .env
+    echo done! successfully provided service-account key.
+  secretEnv: ['SERVICE_ACCOUNT_KEY_JSON']
 
 
 # - name: 'docker'
