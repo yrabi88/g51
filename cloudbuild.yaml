@@ -59,7 +59,7 @@ options:
   automapSubstitutions: true
 availableSecrets:
   secretManager:
-  - versionName: projects/$PROJECT_ID/secrets/g51-build-sa-key/versions/1
-    env: 'SERVICE_ACCOUNT_KEY_JSON_REAL'
+  # - versionName: projects/$PROJECT_ID/secrets/g51-build-sa-key/versions/1
+  #   env: 'SERVICE_ACCOUNT_KEY_JSON'
   - versionName: projects/$PROJECT_ID/secrets/somekey/versions/1
     env: 'SERVICE_ACCOUNT_KEY_JSON'
