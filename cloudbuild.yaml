@@ -3,14 +3,14 @@ steps:
 - name: 'bash'
   id: provide service account key
   script: |
-    echo $SERVICE_ACCOUNT_KEY_JSON > sa_key.json
+    echo $SERVICE_ACCOUNT_KEY_JSON > /workspace/sa_key.json
     echo created key file.
-    echo GOOGLE_APPLICATION_CREDENTIALS=sa_key.json > .env
-    echo created env file.
+    # echo GOOGLE_APPLICATION_CREDENTIALS=/workspace/sa_key.json > /workspace/.env
+    # echo created env file.
     echo done! successfully provided service-account key.
   secretEnv: ['SERVICE_ACCOUNT_KEY_JSON']
 
-- name: 'gcr.io/cloud-builders/docker'
+- name: 'docker'
   args: ['build', '-t', 'gcr.io/$PROJECT_ID/$BRANCH_NAME:$SHORT_SHA', '.']
 
 serviceAccount: '$SERVICE_ACCOUNT'

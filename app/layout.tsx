@@ -4,6 +4,8 @@ import { Sixtyfour, Poppins } from 'next/font/google'
 import "./globals.css";
 import './lib/firestore'
 
+console.log('ENVIS: GOOGLE_APPLICATION_CREDENTIALS = ', process.env.GOOGLE_APPLICATION_CREDENTIALS)
+
 const sixtyfour = Sixtyfour({
   subsets: ['latin'],
   variable: '--font-sixtyfour',

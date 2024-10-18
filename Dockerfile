@@ -40,11 +40,15 @@ COPY --from=builder /app/package.json ./package.json
 COPY --from=builder --chown=nodeuser:nodegrp /app/.next/standalone ./
 COPY --from=builder --chown=nodeuser:nodegrp /app/.next/static ./.next/static
 
+# Work only on google cloud build
+COPY /workspace/sa_key.json ./
+
 # to run docker container locally, uncomment this line
 # COPY service-account-key.json .env.local ./
  
 USER nodeuser
  
+ENV GOOGLE_APPLICATION_CREDENTIALS=sa_key.json
 ENV PORT=3000
 
 # Setting the HOSTNAME is somehow required for binding the server to 0.0.0.0 (even though it is the default value).
