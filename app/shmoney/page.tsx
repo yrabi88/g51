@@ -2,7 +2,7 @@ import shmoneyApiClient from './api/shmoneyApiClient'
 import ExpenseRow from './comps/ExpenseRow'
 import styles from './styles.module.css';
 
-// export const dynamic = 'force-dynamic' // todo: check if build works without this
+export const dynamic = 'force-dynamic' // todo: check if build works without this
 // 'auto' | 'force-dynamic' | 'error' | 'force-static'
 
 export default async function Page() {
