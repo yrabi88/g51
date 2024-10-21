@@ -4,7 +4,7 @@
 FROM node:20-alpine AS deps
 
 WORKDIR /
-RUN echo listing files in workdir (before):
+RUN echo listing files in workdir:
 RUN ls -la
 
 COPY . ./buildctx
