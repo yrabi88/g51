@@ -38,5 +38,6 @@ yarn-error.log*
 *.tsbuildinfo
 next-env.d.ts
 
-# firestore key
-service-account-key.json
+# service account key
+sa_key.json
+

@@ -11,7 +11,10 @@
     "deploy": "gcloud run deploy $npm_package_name --source .",
     "docker:build": "docker build -t g51 .",
     "docker:run": "OUTER_PORT=3001 INNER_PORT=3000 && docker run --name g51-ctr-1 -d -p $OUTER_PORT:$INNER_PORT -e PORT=$INNER_PORT g51",
-    "docker:stop-rm": "CTRNAME=g51-ctr-1 && docker stop $CTRNAME && docker rm $CTRNAME"
+    "docker:stop-rm": "CTRNAME=g51-ctr-1 && docker stop $CTRNAME && docker rm $CTRNAME",
+    "docker:build:amd64": "docker buildx build --platform linux/amd64 -t g51-amd64 .",
+    "docker:run:amd64": "OUTER_PORT=3002 INNER_PORT=3000 && docker run --platform linux/amd64 --name g51-amd64-ctr-1 -d -p $OUTER_PORT:$INNER_PORT -e PORT=$INNER_PORT g51-amd64",
+    "docker:stop-rm:amd64": "CTRNAME=g51-amd64-ctr-1 && docker stop $CTRNAME && docker rm $CTRNAME"
   },
   "dependencies": {
     "@google-cloud/firestore": "^7.10.0",
