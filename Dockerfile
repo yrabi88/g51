@@ -61,7 +61,7 @@ COPY --from=builder --chown=nodeuser:nodegrp /app/.next/standalone ./
 COPY --from=builder --chown=nodeuser:nodegrp /app/.next/static ./.next/static
 
 # to run docker container locally, uncomment this line
-# COPY service-account-key.json .env.local ./
+COPY sa_key.json ./
  
 USER nodeuser
 
@@ -72,6 +72,9 @@ ENV PORT=3000
 # This allows to make requests to the API inside the container.
 # This is mostly needed for data fetching from the API by server components.
 ENV HOSTNAME=0.0.0.0
+
+RUN echo files in final image workdir:
+RUN ls -la
 
 EXPOSE $PORT
 CMD ["node", "server.js"]
