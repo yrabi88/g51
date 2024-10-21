@@ -26,7 +26,7 @@ ENV GOOGLE_APPLICATION_CREDENTIALS=sa_key.json
 # Setting the HOSTNAME is somehow required for binding the server to 0.0.0.0 (even though it is the default value).
 # This allows to make requests to the API inside the container.
 # This is mostly needed for data fetching from the API by server components.
-ENV HOSTNAME=127.0.0.1
+ENV HOSTNAME=0.0.0.0
 
 RUN yarn run build
 
