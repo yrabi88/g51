@@ -1,8 +1,6 @@
 import { buildResponse } from '@/app/lib/api'
 import { shmoneyDb } from '@/app/shmoney/db/shmoneyDb'
 
-console.log('ENVIS3: GOOGLE_APPLICATION_CREDENTIALS = ', process.env.GOOGLE_APPLICATION_CREDENTIALS)
-
 interface Params {
     id: string;
 }

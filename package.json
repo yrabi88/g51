@@ -5,6 +5,7 @@
   "scripts": {
     "dev": "next dev",
     "build": "next build",
+    "build:standalone": "yarn build && yarn standalone-postbuild",
     "start": "next start",
     "lint": "next lint",
     "predeploy": "yarn build",
@@ -14,7 +15,9 @@
     "docker:stop-rm": "CTRNAME=g51-ctr-1 && docker stop $CTRNAME && docker rm $CTRNAME",
     "docker:build:amd64": "docker buildx build --platform linux/amd64 -t g51-amd64 .",
     "docker:run:amd64": "OUTER_PORT=3002 INNER_PORT=3000 && docker run --platform linux/amd64 --name g51-amd64-ctr-1 -d -p $OUTER_PORT:$INNER_PORT -e PORT=$INNER_PORT g51-amd64",
-    "docker:stop-rm:amd64": "CTRNAME=g51-amd64-ctr-1 && docker stop $CTRNAME && docker rm $CTRNAME"
+    "docker:stop-rm:amd64": "CTRNAME=g51-amd64-ctr-1 && docker stop $CTRNAME && docker rm $CTRNAME",
+    "standalone-postbuild": "mv .next/static .next/standalone/.next/static && [[ -e sa_key.json ]] && cp sa_key.json .next/standalone",
+    "start:standalone": "node .next/standalone/server"
   },
   "dependencies": {
     "@google-cloud/firestore": "^7.10.0",

@@ -13,10 +13,10 @@ export class HttpClient {
 
     basicFetch(uri: string, init?: RequestInit): Promise<Response> {
         const url = this.baseUrl + uri
-        console.log('basicFetch: ' + url)
+        console.debug('about to basicFetch: ' + url, 'cache: ' + init?.cache)
         const promise = fetch(url, init)
         promise.catch(err => {
-            console.error('failed to fetch: ' + url)
+            console.error('basicFetch failed: ' + url)
             console.error(err)
         })
         return promise
@@ -26,5 +26,12 @@ export class HttpClient {
         const response = await this.basicFetch(uri, init)
         return response.json()
     }
-
+    
+    async jsonFetchNoStore<T>(uri: string, init?: RequestInit): Promise<T> {
+        const fullInit = {
+            ...init,
+            cache: 'no-store',
+        }
+        return this.jsonFetch(uri, fullInit as RequestInit)
+    }
 }

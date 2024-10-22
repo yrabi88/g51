@@ -25,7 +25,7 @@ import  { Firestore }from '@google-cloud/firestore'
 // initFirebaseApp()
 
 // Create a new client
-console.log('creating firestore client')
+// console.debug('creating firestore client')
 export const firestore = new Firestore({
     databaseId: 'garage51-db',
 });

@@ -5,13 +5,15 @@ const shmoneyHttpClient = new HttpClient('/shmoney/api')
 
 class ShmoneyApiClient {
     jsonFetch;
+    jsonFetchNoStore;
     
     constructor() {
         this.jsonFetch = shmoneyHttpClient.jsonFetch.bind(shmoneyHttpClient)
+        this.jsonFetchNoStore = shmoneyHttpClient.jsonFetchNoStore.bind(shmoneyHttpClient)
     }
 
     getExpenses() {
-        return this.jsonFetch<Expense[]>('/expenses')
+        return this.jsonFetchNoStore<Expense[]>('/expenses')
     }
 }
 
