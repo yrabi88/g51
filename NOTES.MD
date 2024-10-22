@@ -1,3 +1,7 @@
+TODO: LEARN
+- https://nextjs.org/docs/pages/api-reference/next-config-js/output
+- nextjs caching + data fetching + dynamic routes
+
 providing service-account key to local dev server:
 https://cloud.google.com/docs/authentication/provide-credentials-adc#local-key
 
@@ -27,10 +31,6 @@ https://cloud.google.com/firestore/docs/security/iam
 service account
 roles:
   - roles/datastore.user
-
-
-todo!!!! check nextjs standalone output docs!
-https://nextjs.org/docs/pages/api-reference/next-config-js/output
 
 ```
 // build image:
