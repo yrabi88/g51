@@ -17,9 +17,11 @@ steps:
   args: ['push', 'gcr.io/$PROJECT_ID/$BRANCH_NAME:$SHORT_SHA']
 
 serviceAccount: '$SERVICE_ACCOUNT'
+
 options:
   logging: CLOUD_LOGGING_ONLY
-  automapSubstitutions: true
+  automapSubstitutions: true # todo: is this needed? or is secretEnv making it work?
+
 availableSecrets:
   secretManager:
   - versionName: projects/$PROJECT_ID/secrets/g51-build-sa-key/versions/1

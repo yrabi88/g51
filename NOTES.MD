@@ -1,6 +1,14 @@
-TODO: LEARN
-- https://nextjs.org/docs/pages/api-reference/next-config-js/output
+### TODO: LEARN
+- [next config.js | output](https://nextjs.org/docs/pages/api-reference/next-config-js/output)
 - nextjs caching + data fetching + dynamic routes
+- how to write tests for frontend
+- nextjs SSR + streaming
+- authentication with iam
+
+### TODO
+- infra: dockerfile todos
+- infra: pass .env file to image. See: [docker | env_file](https://docs.docker.com/compose/how-tos/environment-variables/set-environment-variables/#use-the-env_file-attribute)
+- infra: use service account without key
 
 providing service-account key to local dev server:
 https://cloud.google.com/docs/authentication/provide-credentials-adc#local-key
