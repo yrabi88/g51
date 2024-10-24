@@ -6,9 +6,22 @@
 - authentication with iam
 
 ### TODO
+- remove dep: firebase/admin
 - infra: dockerfile todos
 - infra: pass .env file to image. See: [docker | env_file](https://docs.docker.com/compose/how-tos/environment-variables/set-environment-variables/#use-the-env_file-attribute)
 - infra: use service account without key
+- experiment with yarn lint
+
+
+
+
+```
+"docker:build:amd64": "docker buildx build --platform linux/amd64 -t g51-amd64 .",
+"docker:run:amd64": "OUTER_PORT=3002 INNER_PORT=3000 && docker run --platform linux/amd64 --name g51-amd64-ctr-1 -d -p $OUTER_PORT:$INNER_PORT -e PORT=$INNER_PORT g51-amd64",
+"docker:stop-rm:amd64": "CTRNAME=g51-amd64-ctr-1 && docker stop $CTRNAME && docker rm $CTRNAME",
+```
+
+
 
 providing service-account key to local dev server:
 https://cloud.google.com/docs/authentication/provide-credentials-adc#local-key

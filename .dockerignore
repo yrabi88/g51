@@ -1,0 +1,23 @@
+node_modules
+.DS_Store
+.git
+.gitignore
+NOTES.MD
+cloudbuild.yaml
+porkbun-dns-records.txt
+
+# README.md
+# Dockerfile
+# tsconfig.json
+# sa_key.json       -> service account key
+# .env
+# .eslintrc.json
+# .next
+# app
+# next-env.d.ts
+# next.config.mjs
+# postcss.config.mjs
+# tailwind.config.ts
+# package-lock.json
+# yarn.lock
+# package.json

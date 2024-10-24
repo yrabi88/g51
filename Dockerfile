@@ -19,12 +19,12 @@ WORKDIR /app
 COPY package.json yarn.lock ./
 RUN yarn install --frozen-lockfile
 
- 
 FROM node:20-alpine AS builder
 WORKDIR /app
 COPY --from=deps /app/node_modules ./node_modules
 
 # todo: copy only specific files and folders here?
+# this will copy to 'builder' phase all commented-out files in .dockerignore (true for this commit)
 COPY . .
  
 # todo: is PUBLIC_APP_NAME needed?
@@ -33,8 +33,8 @@ COPY . .
 
 ENV NEXT_TELEMETRY_DISABLED=1
 
-# todo: use 'build:standalone' script?
-RUN yarn run build
+# this will build the app into /app/.next/standalone
+RUN yarn build
 
 FROM node:20-alpine AS runner
 WORKDIR /app
@@ -48,17 +48,18 @@ RUN adduser --system --uid 1001 nodeuser
 RUN mkdir -p -m 0755 /app/.next/cache
 RUN chown nodeuser:nodegrp /app/.next/cache
 
-# todo: is this needed? seems like env is injected hard-coded into standalone/server.js
-COPY --from=builder /app/next.config.mjs ./
 
 COPY --from=builder /app/package.json ./package.json
 # COPY --from=builder /app/public ./public # todo: is this needed?
  
+# todo: is this needed? seems like env is injected hard-coded into standalone/server.js
+# COPY --from=builder /app/next.config.mjs ./
+
 # Automatically leverage output traces to reduce image size
 COPY --from=builder --chown=nodeuser:nodegrp /app/.next/standalone ./
 COPY --from=builder --chown=nodeuser:nodegrp /app/.next/static ./.next/static
 
-# to run docker container locally, uncomment this line
+# Add service-account key for permissions on google cloud
 COPY sa_key.json ./
  
 USER nodeuser
