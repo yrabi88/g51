@@ -7,11 +7,18 @@
 
 ### TODO
 - remove dep: firebase/admin
+- infra: multi-env ci/cd (prod, stg)
 - infra: dockerfile todos
 - infra: pass .env file to image. See: [docker | env_file](https://docs.docker.com/compose/how-tos/environment-variables/set-environment-variables/#use-the-env_file-attribute)
 - infra: use service account without key
 - experiment with yarn lint
 
+
+# TODO: APPS
+* goodstuff - recommend movies, music, tv shows
+* watchlist
+* shmoney - expense manager
+* chords list
 
 
 
@@ -79,10 +86,6 @@ CTRNAME=gta-ctr1 && docker stop $CTRNAME && docker rm $CTRNAME
 endpoint:
 https://garage51-368097635893.europe-west1.run.app
 
-# Apps Todo
-* goodstuff - recommend movies, music, tv shows
-* watchlist
-* shmoney - expense manager
 
 # Notes
 
