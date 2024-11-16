@@ -1,10 +1,9 @@
-import { Expense, CurrencyId } from '@/app/shmoney/lib/types';
+import { Expense, CurrencyId, NewExpenseDto } from '@/app/shmoney/lib/types';
 import { firestore } from '@/app/lib/firestore'
 
 const expensesRef = firestore.collection('expenses');
 
-interface ExpenseDto {
-    id: string;
+interface NewExpenseDoc {
     amount: number;
     currency: CurrencyId;
     paid_at_iso: string;
@@ -12,14 +11,18 @@ interface ExpenseDto {
     user: string;
 }
 
-function buildExpenseFromDoc(docId: string, expenseDto: ExpenseDto): Expense {
+interface ExpenseDocData extends NewExpenseDoc {
+    id: string;
+}
+
+function buildExpenseFromDoc(docId: string, expenseDocData: ExpenseDocData): Expense {
     return {
         id: docId,
-        ownerId: expenseDto.user,
-        name: expenseDto.title,
-        amount: expenseDto.amount,
-        currency: expenseDto.currency,
-        date: expenseDto.paid_at_iso,
+        userId: expenseDocData.user,
+        title: expenseDocData.title,
+        amount: expenseDocData.amount,
+        currency: expenseDocData.currency,
+        paidAtIso: expenseDocData.paid_at_iso,
     }
 }
 
@@ -39,13 +42,44 @@ async function getExpenses(): Promise<Expense[]> {
         // });
         expenses.push(buildExpenseFromDoc(
             docSnap.id,
-            docData as unknown as ExpenseDto, // todo: type safety
+            docData as unknown as ExpenseDocData, // todo: type safety
         ))
     });
 
     return expenses
 }
 
+function buildNewExpenseDoc(newExpenseDto: NewExpenseDto): NewExpenseDoc {
+    return {
+        amount: newExpenseDto.amount,
+        currency: newExpenseDto.currency,
+        paid_at_iso: newExpenseDto.paidAtIso,
+        title: newExpenseDto.title,
+        user: newExpenseDto.userId,
+    }
+}
+
+async function createExpense(newExpenseDto: NewExpenseDto): Promise<Expense> {
+    
+    const expenseDocToAdd = buildNewExpenseDoc(newExpenseDto)
+    const docRef = await expensesRef.add(expenseDocToAdd)
+
+    console.log(`Added document with name: ${docRef.id}`);
+    const docSnap = await docRef.get()
+    if (docSnap.exists) {
+        const docData = docSnap.data() as Expense
+        console.log(`created doc (${docSnap.id})`, JSON.stringify(docData))
+        // docData.id = docSnap.id
+        return docData
+    }
+    else {
+        console.log('did not create doc?')
+        // todo: what?
+        throw Error(`Failed to create expense ${newExpenseDto.title}`)
+    }
+}
+
 export const shmoneyDb = {
     getExpenses,
+    createExpense,
 }

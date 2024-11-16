@@ -4,11 +4,14 @@ export enum CurrencyId {
 
 export type UtcIso = string;
 
-export interface Expense {
-    id: string;
-    ownerId: string;
-    name: string;
+export interface NewExpenseDto {
+    userId: string;
+    title: string;
     amount: number;
     currency: CurrencyId;
-    date: UtcIso;
+    paidAtIso: UtcIso;
+}
+
+export interface Expense extends NewExpenseDto {
+    id: string;
 }

@@ -1,7 +1,8 @@
 import { HttpClient } from '@/app/lib/httpClient'
 import { Expense } from '@/app/shmoney/lib/types'
 
-const shmoneyHttpClient = new HttpClient('/shmoney/api')
+const baseUri = '/shmoney/api'
+const shmoneyHttpClient = new HttpClient(baseUri)
 
 class ShmoneyApiClient {
     jsonFetch;

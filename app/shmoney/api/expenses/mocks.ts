@@ -2,16 +2,16 @@ import { Expense, CurrencyId } from '@/app/shmoney/lib/types'
 
 const createExpense = (
     id: string,
-    ownerId: string,
-    name: string,
+    userId: string,
+    title: string,
     amount: number,
     currency: CurrencyId,
-    date: Date,
+    paidAt: Date,
 ): Expense => ({
     id,
-    date: date.toISOString(),
-    ownerId,
-    name,
+    paidAtIso: paidAt.toISOString(),
+    userId,
+    title,
     amount,
     currency,
 })

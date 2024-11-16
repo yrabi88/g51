@@ -14,13 +14,13 @@ function Cell(props: CellProps) {
 }
 
 export default function ExpenseRow(props: Props) {
-    const { name, amount, ownerId, currency, date: dateIso } = props.expense
-    const date = new Date(dateIso).toDateString()
+    const { title, amount, userId, currency, paidAtIso } = props.expense
+    const paidAt = new Date(paidAtIso).toDateString()
     return (
         <>
-            <Cell>{ date }</Cell>
-            <Cell><span className="capitalize">{ ownerId }</span></Cell>
-            <Cell>{ name }</Cell>
+            <Cell>{ paidAt }</Cell>
+            <Cell><span className="capitalize">{ userId }</span></Cell>
+            <Cell>{ title }</Cell>
             <Cell>{ amount } { currency }</Cell>
         </>
     )
