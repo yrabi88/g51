@@ -6,6 +6,11 @@
   font-family: var(--font-sixtyfour);
 }
 
+.main-font {
+  font-family: var(--font-poppins);
+}
+
+
 :root {
   --background: #ffffff;
   --foreground: #171717;
