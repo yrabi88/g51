@@ -4,15 +4,18 @@ import TextInput from '@/app/components/basic/textInput/TextInput'
 import Col from '@/app/components/layout/Col'
 import { CurrencyId } from '../lib/types'
 import { createExpense } from '../api/shmoneyServerActions'
+import Button from '@/app/components/basic/button/Button'
 
-const buildField = (name: string, defaultValue?: string | number) => ({ name, defaultValue })
+const buildField =
+    (name: string, label: string, defaultValue?: string | number) =>
+        ({ name, label, defaultValue })
 
 const fields = [
-    buildField('paidAt', '2024-10-28'),
-    buildField('user', 'yakir'),
-    buildField('title', 'Oranges'),
-    buildField('amount', '123'),
-    buildField('currency', CurrencyId.ILS),
+    buildField('title', 'Title', 'Oranges'),
+    buildField('amount', 'Amount', '123'),
+    buildField('paidAt', 'Paid At', '2024-10-28'),
+    buildField('user', 'User', 'yakir'),
+    buildField('currency', 'Currency', CurrencyId.ILS),
 ]
 
 export default function ExpenseForm() {
@@ -23,12 +26,12 @@ export default function ExpenseForm() {
                     { fields.map(fld => (
                         <TextInput
                             key={fld.name}
-                            name={fld.name} defaultValue={fld.defaultValue}
+                            { ...fld }
                         />
 
                     )) }
                 </Row>
-                <button type="submit" className="bg-red-600 p-4">Create</button>
+                <Button type="submit" className="">Create</Button>
             </Col>
         </Form>
     )
