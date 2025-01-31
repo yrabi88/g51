@@ -72,7 +72,7 @@ async function removeList(listId: UUID) {
 
 async function getList(listId: UUID): Promise<List> {
     console.log('about to remove list', listId)
-    await new Promise(resolve => setTimeout(resolve, 500))
+    await new Promise(resolve => setTimeout(resolve, 200))
     const lists = getListsFromLs()
     console.log(lists.map(l => l.id))
     const list = lists.find(list => list.id === listId)
