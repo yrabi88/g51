@@ -47,7 +47,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`${fontVariablesConcat} antialiased`}
+        className={`${fontVariablesConcat} antialiased main-font`}
       >
         {children}
       </body>

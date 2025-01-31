@@ -7,6 +7,7 @@ import TextInput from '../../components/basic/textInput/TextInput'
 import { List } from '../types'
 import Row from '@/app/components/layout/Row'
 import { UUID } from 'crypto'
+import Link from 'next/link'
 
 // todo: code style
 
@@ -57,7 +58,9 @@ export default function Home(props: Props) {
                     { lists.map((list) => {
                         return (
                             <Row key={list.id} className='gap-5'>
-                                <div>&gt; {list.name}</div>
+                                <Link href={`/lista/${list.id}`}>
+                                    &gt; {list.name}
+                                </Link>
                                 <div className='cursor-pointer' onClick={() => removeListAndRefetch(list.id)}>[x]</div>
                             </Row>
                         )

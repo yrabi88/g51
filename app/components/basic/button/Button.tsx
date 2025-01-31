@@ -7,7 +7,7 @@ export default function Button(props: Props) {
     // const { className } = props
     const className = clsx(
         props.className,
-        'bg-emerald-600 p-4 text-white rounded',
+        'bg-emerald-600 p-2 text-white rounded whitespace-nowrap',
     )
     return (
         <button { ...props } className={ className } />

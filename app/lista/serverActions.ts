@@ -1,48 +1,35 @@
 'use server'
 
-import { UUID, randomUUID } from 'crypto'
-import { List } from './types'
-
-// todo: connect to firebase
-
-let lists: List[] = [
-    {
-        id: randomUUID(),
-        name: 'movies'
-    },
-    {
-        id: randomUUID(),
-        name: 'todo'
-    },
-    {
-        id: randomUUID(),
-        name: 'creds'
-    },
-]
+import { UUID } from 'crypto'
+import { List, ListItem } from './types'
+import { revalidatePath } from 'next/cache'
+import db from './lib/listaDb'
 
 export async function getAllLists(): Promise<List[]> {
-    console.log('about to fetch lists')
-    await new Promise(resolve => setTimeout(resolve, 500))
-
-    console.log('fetched lists', lists)
-    return lists
+    return db.getAllLists()
 }
 
 export async function addList(name: string) {
-    console.log('about to add list', name)
-    await new Promise(resolve => setTimeout(resolve, 500))
-    lists.push({
-        id: randomUUID(),
-        name,
-    })
-    console.log('added list', name)
-    return lists
+    return db.addList(name)
+}
+
+export async function addListItem(formData: FormData): Promise<ListItem | undefined> {
+    const listId = formData.get('listId') as UUID
+    const itemTitle = formData.get('itemTitle')
+    if (!listId || !itemTitle || typeof itemTitle !== 'string') {
+        console.error('bad request. cannot add list item.')
+        return;
+    }
+
+    const newItem = db.addListItem(listId, itemTitle)
+    revalidatePath('/lista' + listId)
+    return newItem
 }
 
 export async function removeList(listId: UUID) {
-    console.log('about to remove list', listId)
-    await new Promise(resolve => setTimeout(resolve, 500))
-    lists = lists.filter(list => list.id !== listId)
-    console.log('removed list', listId)
-    return lists
+    db.removeList(listId)
+}
+
+export async function getList(listId: UUID): Promise<List> {
+    return db.getList(listId)
 }
