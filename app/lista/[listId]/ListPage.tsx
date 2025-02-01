@@ -1,7 +1,6 @@
 'use client'
 
 import Col from '@/app/components/layout/Col'
-import { UUID } from 'crypto'
 import { ListItem } from '../types'
 import { addListItem, getListItems, removeListItem } from '../serverActions'
 import TextInput from '@/app/components/basic/textInput/TextInput'
@@ -13,7 +12,7 @@ import { PropsWithChildren, useEffect, useState } from 'react'
 // todo: code style
 
 interface Props {
-    listId: UUID
+    listId: string
 }
 
 const Contr = (props: PropsWithChildren) => (
@@ -28,7 +27,7 @@ function renderItems(items: ListItem[], onRemoveItem: RemoveItemHandler) {
     return items.map(item => {
         return (
             <Row key={item.id} className='gap-2'>
-                <div>{item.title ?? 'noname'}</div>
+                <div>{item.title as string ?? 'noname'}</div>
                 <div className='cursor-pointer' onClick={() => onRemoveItem(item.id)}>[x]</div>
             </Row>
         )

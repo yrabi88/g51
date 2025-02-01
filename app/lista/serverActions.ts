@@ -1,6 +1,5 @@
 'use server'
 
-import { UUID } from 'crypto'
 import { List, ListItem } from './types'
 // import { revalidatePath } from 'next/cache'
 import db from './lib/listaDb'
@@ -14,7 +13,7 @@ export async function addList(name: string) {
 }
 
 export async function addListItem(formData: FormData): Promise<ListItem | undefined> {
-    const listId = formData.get('listId') as UUID
+    const listId = formData.get('listId') as string
     const formValues = Array.from(formData.entries())
     console.log({formValues})
     // todo: support lists with dynamic fields
@@ -35,7 +34,7 @@ export async function removeListItem(itemId: string) {
     // revalidatePath('/lista' + listId)
 }
 
-export async function removeList(listId: UUID) {
+export async function removeList(listId: string) {
     db.removeList(listId)
 }
 

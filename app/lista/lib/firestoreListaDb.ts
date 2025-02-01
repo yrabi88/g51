@@ -4,6 +4,7 @@ const listsRef = firestore.collection('lista_lists')
 const listItemsRef = firestore.collection('lista_list_items')
 
 import { List, ListItem, NewListItem } from '../types'
+import { QuerySnapshot } from '@google-cloud/firestore'
 // import { List, ListItem } from '../types'
 
 // todo: code style
@@ -58,13 +59,22 @@ async function getList(listName: string): Promise<List> {
 
 async function removeList(listId: string) {
     await listsRef.doc(listId).delete()
+    const listItemsSnapshot = await listItemsRef.where('list_id', '==', listId).get()
+    await deleteDocsInBatch(listItemsSnapshot)
+}
+
+async function deleteDocsInBatch(snapshot: QuerySnapshot) {
+  const batch = firestore.batch()
+  snapshot.docs.forEach((doc) => {
+    batch.delete(doc.ref)
+  });
+  await batch.commit()
 }
 
 async function getListItems(listId: string): Promise<ListItem[]> {
     const snapshot = await listItemsRef.where('list_id', '==', listId).get()
     const listItems: ListItem[] = []
     snapshot.forEach(doc => {
-        console.log('elvis', {doc})
         listItems.push({id: doc.id, ...doc.data()} as ListItem)
     });
     return listItems

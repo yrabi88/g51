@@ -6,7 +6,6 @@ import { addList, getAllLists, removeList } from '../serverActions'
 import TextInput from '../../components/basic/textInput/TextInput'
 import { List } from '../types'
 import Row from '@/app/components/layout/Row'
-import { UUID } from 'crypto'
 import Link from 'next/link'
 
 // todo: code style
@@ -40,7 +39,7 @@ export default function Home(props: Props) {
         }
     }
 
-    const removeListAndRefetch = async (listId: UUID) => {
+    const removeListAndRefetch = async (listId: string) => {
         try {
             await removeList(listId)
             setListsStale(true)

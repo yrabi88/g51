@@ -1,16 +1,16 @@
-import { UUID } from 'crypto'
-
 import { Metadata } from 'next'
 import ListPage from './ListPage'
-import { getListSafe } from './listUtils'
+import { getList } from '../serverActions'
 
-type Params = {listId: UUID}
+interface Params {
+  listId: string
+}
 
 export async function generateMetadata(
-    { params }: {params: Params},
+    { params }: {params: Promise<Params>},
   ): Promise<Metadata> {
     const listId = (await params).listId
-    const list = await getListSafe(listId)
+    const list = await getList(listId)
    
     return {
       title: (list?.name ?? 'Nope') + ' | List',
