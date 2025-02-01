@@ -1,7 +1,7 @@
 'use server'
 
 import { List, ListItem } from './types'
-// import { revalidatePath } from 'next/cache'
+import { revalidatePath } from 'next/cache'
 import db from './lib/listaDb'
 
 export async function getAllLists(): Promise<List[]> {
@@ -9,7 +9,9 @@ export async function getAllLists(): Promise<List[]> {
 }
 
 export async function addList(name: string) {
-    return db.addList(name)
+    const list = await db.addList(name)
+    revalidatePath('/lista')
+    return list
 }
 
 export async function addListItem(formData: FormData): Promise<ListItem | undefined> {
@@ -35,7 +37,8 @@ export async function removeListItem(itemId: string) {
 }
 
 export async function removeList(listId: string) {
-    db.removeList(listId)
+    await db.removeList(listId)
+    revalidatePath('/lista')
 }
 
 export async function getList(listId: string): Promise<List> {
