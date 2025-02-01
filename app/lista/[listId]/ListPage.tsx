@@ -2,14 +2,13 @@
 
 import Col from '@/app/components/layout/Col'
 import { UUID } from 'crypto'
-import { List, ListItem } from '../types'
-import { addListItem, removeListItem } from '../serverActions'
+import { ListItem } from '../types'
+import { addListItem, getListItems, removeListItem } from '../serverActions'
 import TextInput from '@/app/components/basic/textInput/TextInput'
 import Button from '@/app/components/basic/button/Button'
 import Row from '@/app/components/layout/Row'
 import Link from 'next/link'
 import { PropsWithChildren, useEffect, useState } from 'react'
-import { getListSafe } from './listUtils'
 
 // todo: code style
 
@@ -23,33 +22,43 @@ const Contr = (props: PropsWithChildren) => (
     </Col>
 )
 
-type RemoveItemHandler = (itemId: UUID, listId: UUID) => Promise<unknown>
+type RemoveItemHandler = (itemId: string) => Promise<unknown>
 
-function renderItems(list: List, items: ListItem[], onRemoveItem: RemoveItemHandler) {
+function renderItems(items: ListItem[], onRemoveItem: RemoveItemHandler) {
     return items.map(item => {
         return (
             <Row key={item.id} className='gap-2'>
-                <div>{item.title}</div>
-                <div className='cursor-pointer' onClick={() => onRemoveItem(item.id, list.id)}>[x]</div>
+                <div>{item.title ?? 'noname'}</div>
+                <div className='cursor-pointer' onClick={() => onRemoveItem(item.id)}>[x]</div>
             </Row>
         )
     })
 }
+
+function buildValuesConcat(listItem: ListItem) {
+    return Object.values(listItem).map(v => v + '').join(' ')
+}
+
+const emptyArr: unknown[] = []
 
 export default function ListPage({listId}: Props)  {
 
     const [textFilter, setTextFilter] = useState('')
     const [loading, setLoading] = useState(true)
     const [fetching, setFetching] = useState(false)
-    const [list, setList] = useState<List>()
+    const [listItems, setListItems] = useState(emptyArr as ListItem[])
     const [stale, setStale] = useState(true)
 
     useEffect(() => {
         if (!stale) return;
         setFetching(true)
-        getListSafe(listId).then(_list => {
-            if (_list) setList(_list)
-        }).finally(() => (setFetching(false), setStale(false), setLoading(false)))
+        getListItems(listId)
+            .then(_listItems => _listItems.map(listItem => ({
+                ...listItem,
+                valuesConcat: buildValuesConcat(listItem),
+            })))
+            .then(setListItems)
+            .finally(() => (setFetching(false), setStale(false), setLoading(false)))
     }, [ listId, stale ])
 
     if (loading) {
@@ -60,7 +69,7 @@ export default function ListPage({listId}: Props)  {
         )
     }
 
-    if (!list) {
+    if (!listItems) {
         return (
             <Contr>
                 <div className='text-xl'>Could not find list: { listId }</div>
@@ -68,14 +77,17 @@ export default function ListPage({listId}: Props)  {
         )
     }
 
-    const filteredItems = list.items.filter(item => item.title.includes(textFilter))
+    const filteredItems = listItems.filter(item => (item.valuesConcat as string).includes(textFilter))
 
-    const handleRemoveItem = async (itemId: UUID, listId: UUID) => {
-        await removeListItem(itemId, listId)
+    const handleRemoveItem = async (itemId: string) => {
+        await removeListItem(itemId)
         setStale(true)
     }
 
-
+    const addItem = async (formData: FormData): Promise<void> => {
+        await addListItem(formData)
+        setStale(true)
+    }
     return (
         <Col className='p-5 bg-white h-screen text-gray-600 gap-3'>
             <Col>
@@ -83,7 +95,7 @@ export default function ListPage({listId}: Props)  {
                     <Link href="/lista">Lists</Link>
                     <span>&gt;</span>
                 </Row>
-                <div className='text-4xl'>{list.name}</div>
+                <div className='text-4xl'>{listId}</div>
             </Col>
             <Row>
                 <TextInput label="Filter" value={textFilter} onChange={e => setTextFilter(e.target.value)} />
@@ -91,13 +103,10 @@ export default function ListPage({listId}: Props)  {
             <Col className='min-h-60'>
                 {fetching
                     ? <span className='text-lg'>Refetching items..</span>
-                    : renderItems(list, filteredItems, handleRemoveItem)
+                    : renderItems(filteredItems, handleRemoveItem)
                 }
             </Col>
-            <form action={async formData => {
-                await addListItem(formData)
-                setStale(true)
-                }}>
+            <form action={addItem}>
                 <Row className='gap-3 items-end'>
                     <TextInput className='hidden' name="listId" value={listId} readOnly />
                     <TextInput label="Title" name="itemTitle" />

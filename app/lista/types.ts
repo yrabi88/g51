@@ -1,12 +1,12 @@
-import { UUID } from 'crypto'
-
 export interface List {
-    id: UUID
+    id: string
     name: string
-    items: ListItem[]
 }
 
-export interface ListItem {
-    id: UUID
-    title: string
+export type NewListItem = Record<string, unknown> & {
+    list_id: string
+}
+
+export type ListItem = NewListItem & {
+    id: string
 }
