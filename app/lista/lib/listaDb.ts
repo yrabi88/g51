@@ -3,6 +3,7 @@ import { List, ListItem } from '../types'
 import fs from 'fs'
 import path from 'node:path'
 
+// todo: code style
 // todo: connect to firebase
 
 const dbfilepath = path.resolve('./app/lista/fakeDb.json')
@@ -70,6 +71,18 @@ async function removeList(listId: UUID) {
     console.log('removed list', listId)
 }
 
+async function removeListItem(itemId: UUID, listId: UUID) {
+    console.log('about to remove list item', listId)
+    await new Promise(resolve => setTimeout(resolve, 100))
+    let lists = getListsFromLs()
+    lists = lists.map(list => list.id !== listId ? list : {
+        ...list,
+        items: list.items.filter(item => item.id !== itemId),
+    })
+    updateListsInLs(lists)
+    console.log('removed list', listId)
+}
+
 async function getList(listId: UUID): Promise<List> {
     console.log('about to remove list', listId)
     await new Promise(resolve => setTimeout(resolve, 200))
@@ -87,6 +100,7 @@ const db = {
     addList,
     addListItem,
     removeList,
+    removeListItem,
     getList,
 }
 
