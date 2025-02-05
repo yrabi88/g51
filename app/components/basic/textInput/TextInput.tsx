@@ -4,6 +4,7 @@ import clsx from 'clsx'
 
 interface TextInputProps extends React.InputHTMLAttributes<HTMLInputElement> {
     label?: string;
+    inputClass?: string;
 }
 
 export default function TextInput(props: TextInputProps) {
@@ -11,6 +12,7 @@ export default function TextInput(props: TextInputProps) {
         name,
         label = name,
         className,
+        inputClass,
         ...inputProps
     } = props
     return (
@@ -19,7 +21,7 @@ export default function TextInput(props: TextInputProps) {
             <input
                 { ...inputProps }
                 name={name}
-                className={clsx("text-black p-2 border border-teal-700 rounded")}
+                className={clsx("text-black p-2 border border-teal-700 rounded", inputClass)}
             ></input>
         </Col>
     )

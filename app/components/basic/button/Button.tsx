@@ -3,11 +3,17 @@ import { ButtonHTMLAttributes } from 'react'
 
 type Props = ButtonHTMLAttributes<HTMLButtonElement>
 
+const classes = {
+    common: 'p-2 text-white rounded whitespace-nowrap',
+    enabled: 'bg-emerald-600',
+    disabled: 'bg-gray-400',
+}
+
 export default function Button(props: Props) {
-    // const { className } = props
     const className = clsx(
+        classes.common,
+        props.disabled ? classes.disabled : classes.enabled,
         props.className,
-        'bg-emerald-600 p-2 text-white rounded whitespace-nowrap',
     )
     return (
         <button { ...props } className={ className } />

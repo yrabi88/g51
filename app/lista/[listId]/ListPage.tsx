@@ -24,10 +24,10 @@ const Contr = (props: PropsWithChildren) => (
 type RemoveItemHandler = (itemId: string) => Promise<unknown>
 
 function renderItems(items: ListItem[], onRemoveItem: RemoveItemHandler) {
-    return items.map(item => {
+        return items.map(item => {
         return (
             <Row key={item.id} className='gap-2'>
-                <div>{item.title as string ?? 'noname'}</div>
+                                <div>{item.title as string ?? 'noname'}</div>
                 <div className='cursor-pointer' onClick={() => onRemoveItem(item.id)}>[x]</div>
             </Row>
         )
@@ -47,6 +47,7 @@ export default function ListPage({listId}: Props)  {
     const [fetching, setFetching] = useState(false)
     const [listItems, setListItems] = useState(emptyArr as ListItem[])
     const [stale, setStale] = useState(true)
+    const [itemTitle, setItemTitle] = useState('')
 
     useEffect(() => {
         if (!stale) return;
@@ -86,9 +87,11 @@ export default function ListPage({listId}: Props)  {
     const addItem = async (formData: FormData): Promise<void> => {
         await addListItem(formData)
         setStale(true)
+        setItemTitle('')
     }
+
     return (
-        <Col className='p-5 bg-white h-screen text-gray-600 gap-3'>
+        <Col className='p-5 bg-white h-screen bg-gray-100 text-gray-600 gap-3'>
             <Col>
                 <Row className='text-md text-gray-500 gap-1'>
                     <Link href="/lista">Lists</Link>
@@ -106,11 +109,23 @@ export default function ListPage({listId}: Props)  {
                 }
             </Col>
             <form action={addItem}>
-                <Row className='gap-3 items-end'>
-                    <TextInput className='hidden' name="listId" value={listId} readOnly />
-                    <TextInput label="Title" name="itemTitle" />
-                    <Button type="submit">Add Item</Button>
-                </Row>
+                <div className='flex flex-col sm:flex-row sm:items-end gap-3 w-full items-stretch max-w-xl'>
+                    <TextInput
+                        className='hidden'
+                        name="listId" 
+                        value={listId}
+                        readOnly
+                    />
+                    <TextInput
+                        label="Title"
+                        name="itemTitle"
+                        value={itemTitle}
+                        onChange={e => setItemTitle(e.target.value)}
+                        className="grow"
+                    />
+                    <Button className='self-end sm:h-[42px]' disabled={!itemTitle} type="submit">Create Item</Button>
+
+                </div>
             </form>
         </Col>
     )

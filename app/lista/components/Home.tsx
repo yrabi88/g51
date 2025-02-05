@@ -7,6 +7,7 @@ import TextInput from '../../components/basic/textInput/TextInput'
 import { List } from '../types'
 import Row from '@/app/components/layout/Row'
 import Link from 'next/link'
+import Button from '@/app/components/basic/button/Button'
 
 // todo: code style
 
@@ -49,7 +50,7 @@ export default function Home(props: Props) {
     }
     
     return (
-        <Col className="p-7 gap-10 items-center bg-slate-200 text-blue-700 h-screen main-font">
+        <Col className="p-7 gap-10 items-center bg-gray-100 text-gray-600 h-screen main-font">
             <div className={`text-6xl`}>Lista</div>
             <Col className="gap-3">
                 <div className={`text-2xl`}>My Lists</div>
@@ -68,9 +69,9 @@ export default function Home(props: Props) {
             </Col>
             <Col className="gap-2">
                 <TextInput label="List Name" value={newListName} onChange={e => setNewListName(e.target.value)} />
-                <div className={`p-2 text-lg font-bold cursor-pointer bg-blue-200`} onClick={addListAndRefetch}>
-                    + New List
-                </div>
+                <Button disabled={!newListName} className={`p-2 text-lg font-bold cursor-pointer bg-blue-200`} onClick={addListAndRefetch}>
+                    Create List
+                </Button>
             </Col>
         </Col>
     )
