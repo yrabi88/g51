@@ -43,7 +43,8 @@ function renderItems(items: ListItem[], onRemoveItem: RemoveItemHandler, onItemC
 }
 
 function buildValuesConcat(listItem: ListItem) {
-    return Object.values(listItem).map(v => v + '').join(' ')
+    return [ listItem.title ].map(v => v + '').join(' ')
+    // return Object.values(listItem).map(v => v + '').join(' ')
 }
 
 const emptyArr: unknown[] = []
