@@ -2,12 +2,15 @@
 
 import Col from '@/app/components/layout/Col'
 import { ListItem } from '../types'
-import { addListItem, getListItems, removeListItem } from '../serverActions'
+import { addListItem, getListItems, removeListItem, setItemChecked } from '../serverActions'
 import TextInput from '@/app/components/basic/textInput/TextInput'
 import Button from '@/app/components/basic/button/Button'
 import Row from '@/app/components/layout/Row'
 import Link from 'next/link'
 import { PropsWithChildren, useEffect, useState } from 'react'
+import XMark from '@/app/icons/x-mark.svg'
+import Checkbox from '@/app/components/basic/checkbox/Checkbox'
+import clsx from 'clsx'
 
 // todo: code style
 
@@ -21,14 +24,19 @@ const Contr = (props: PropsWithChildren) => (
     </Col>
 )
 
-type RemoveItemHandler = (itemId: string) => Promise<unknown>
+type RemoveItemHandler = (itemId: string) => unknown
+type ItemCheckChangeHandler = (itemId: string, checked: boolean) => unknown
 
-function renderItems(items: ListItem[], onRemoveItem: RemoveItemHandler) {
+function renderItems(items: ListItem[], onRemoveItem: RemoveItemHandler, onItemCheckToggle: ItemCheckChangeHandler) {
         return items.map(item => {
         return (
-            <Row key={item.id} className='gap-2'>
-                                <div>{item.title as string ?? 'noname'}</div>
-                <div className='cursor-pointer' onClick={() => onRemoveItem(item.id)}>[x]</div>
+            <Row key={item.id} className='p-2 gap-3 bg-orange-20011 bg-violet-200 max-w-[400px] justify-between'>
+                <div>{item.title as string ?? 'noname'}</div>
+                    <Row className="gap-2">
+                    <Checkbox value={item.checked} onChange={(checked) => onItemCheckToggle(item.id, checked)} />
+                    <XMark className='cursor-pointer shrink-0' onClick={() => onRemoveItem(item.id)}/>
+                </Row>
+
             </Row>
         )
     })
@@ -90,6 +98,12 @@ export default function ListPage({listId}: Props)  {
         setItemTitle('')
     }
 
+    const handleItemCheckToggle = async (itemId: string, checked: boolean) => {
+        setFetching(true)
+        await setItemChecked(itemId, checked)
+        setStale(true)
+    }
+
     return (
         <Col className='p-5 bg-white h-screen bg-gray-100 text-gray-600 gap-3'>
             <Col>
@@ -97,16 +111,18 @@ export default function ListPage({listId}: Props)  {
                     <Link href="/lista">Lists</Link>
                     <span>&gt;</span>
                 </Row>
-                <div className='text-4xl'>{listId}</div>
+                <Row className='gap-4 items-end'>
+                    <div className='text-4xl'>{listId}</div>
+                    <span className={clsx('text-sm bg-amber-200 px-1 py-0.5 rounded', {'invisible': !fetching})}>Syncing</span>
+                </Row>
             </Col>
-            <Row>
-                <TextInput label="Filter" value={textFilter} onChange={e => setTextFilter(e.target.value)} />
+            <Row className="gap-8 items-end">
+                <TextInput label="Filter" value={textFilter} onChange={e => setTextFilter(e.target.value)} className="grow max-w-xl" />
             </Row>
-            <Col className='min-h-60'>
-                {fetching
-                    ? <span className='text-lg'>Refetching items..</span>
-                    : renderItems(filteredItems, handleRemoveItem)
-                }
+            <Col className='min-h-60 gap-3'>
+                <Col className='min-h-60 gap-3'>
+                    { renderItems(filteredItems, handleRemoveItem, handleItemCheckToggle) }
+                </Col>
             </Col>
             <form action={addItem}>
                 <div className='flex flex-col sm:flex-row sm:items-end gap-3 w-full items-stretch max-w-xl'>

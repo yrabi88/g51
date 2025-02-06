@@ -1,9 +1,8 @@
-import { CommonProps } from '@/app/lib/types'
+import { BoxProps } from '@/app/lib/types'
 import clsx from 'clsx'
 
-export default function Row(props: CommonProps) {
+export default function Row(props: BoxProps) {
     const { className, ...otherProps } = props
-    // console.log('Row rendered')
     return (
         <div
             className={ clsx('flex flex-row', className) }

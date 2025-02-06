@@ -9,6 +9,8 @@ import Row from '@/app/components/layout/Row'
 import Link from 'next/link'
 import Button from '@/app/components/basic/button/Button'
 import XMark from '@/app/icons/x-mark.svg'
+import clsx from 'clsx'
+import BriefcaseIcon from '@/app/icons/briefcase.svg'
 
 // todo: code style
 
@@ -24,12 +26,19 @@ function ListInfo(props: ListInfoProps) {
     const { list, onRemove } = props
     return (
         <Link href={`/lista/${list.id}`}>
-            <Row key={list.id} className='gap-5 p-3 bg-amber-200 shadow-sm justify-between'>
+            <Row key={list.id} className='gap-5 p-3 bg-violet-200 shadow-sm justify-between'>
                 {list.name}
-                <XMark className='cursor-pointer' onClick={ (e: Event) => (onRemove(), e.preventDefault())}/>
+                <XMark
+                    className='cursor-pointer'
+                    onClick={ (e: Event) => (onRemove(), e.preventDefault())}
+                />
             </Row>
         </Link>
     )
+}
+
+const classes = {
+    widthLimits: 'min-w-[150px] max-w-[300px]',
 }
 
 export default function Home(props: Props) {
@@ -58,7 +67,7 @@ export default function Home(props: Props) {
         }
     }
 
-const removeListAndRefetch = async (listId: string) => {
+    const removeListAndRefetch = async (listId: string) => {
         try {
             await removeList(listId)
             setListsStale(true)
@@ -69,9 +78,12 @@ const removeListAndRefetch = async (listId: string) => {
     
     return (
         <Col className="p-7 gap-10 bg-gray-100 text-gray-600 h-screen">
-            <Col className="gap-3 w-5/6 items-stretch">
-                <div className={`text-2xl`}>My Lists</div>
-                <Col className="gap-2 items-stretch">
+            <Col className="gap-7 self-stretch">
+                <Row className={`text-2xl gap-3`}>
+                    <BriefcaseIcon />
+                    <span>My Lists</span>
+                </Row>
+                <Col className={clsx("gap-3", classes.widthLimits)}>
                     { lists.map((list) => {
                         return (
                             <ListInfo
@@ -83,7 +95,7 @@ const removeListAndRefetch = async (listId: string) => {
                     }) }
                 </Col>
             </Col>
-            <Col className="gap-2">
+            <Col className={clsx("gap-2", classes.widthLimits)}>
                 <TextInput label="List Name" value={newListName} onChange={e => setNewListName(e.target.value)} />
                 <Button disabled={!newListName} className={`p-2 text-lg font-bold cursor-pointer bg-blue-200`} onClick={addListAndRefetch}>
                     Create List

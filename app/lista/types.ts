@@ -5,6 +5,7 @@ export interface List {
 
 export type NewListItem = Record<string, unknown> & {
     list_id: string
+    checked?: boolean
 }
 
 export type ListItem = NewListItem & {

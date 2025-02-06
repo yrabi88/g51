@@ -27,13 +27,15 @@ export async function addListItem(formData: FormData): Promise<ListItem | undefi
     }
 
     const newItem = await db.addListItem({list_id: listId, title: itemTitle})
-    // revalidatePath('/lista' + listId)
     return newItem
 }
 
 export async function removeListItem(itemId: string) {
     await db.removeListItem(itemId)
-    // revalidatePath('/lista' + listId)
+}
+
+export async function setItemChecked(itemId: string, checked: boolean) {
+    await db.setItemChecked(itemId, checked)
 }
 
 export async function removeList(listId: string) {

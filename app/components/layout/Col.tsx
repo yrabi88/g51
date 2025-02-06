@@ -1,7 +1,7 @@
-import { CommonProps } from '@/app/lib/types'
+import { BoxProps } from '@/app/lib/types'
 import clsx from 'clsx'
 
-export default function Col(props: CommonProps) {
+export default function Col(props: BoxProps) {
     const { className, ...otherProps } = props
     return (
         <div

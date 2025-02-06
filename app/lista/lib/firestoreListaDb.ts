@@ -94,6 +94,10 @@ async function removeListItem(itemId: string) {
     await listItemsRef.doc(itemId).delete()
 }
 
+async function setItemChecked(itemId: string, checked: boolean) {
+    await listItemsRef.doc(itemId).set({ checked }, { merge: true })
+}
+
 const db = {
     getAllLists,
     addList,
@@ -102,6 +106,7 @@ const db = {
     getListItems,
     addListItem,
     removeListItem,
+    setItemChecked,
 }
 
 export default db
