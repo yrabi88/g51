@@ -10,7 +10,8 @@ import Link from 'next/link'
 import Button from '@/app/components/basic/button/Button'
 import XMark from '@/app/icons/x-mark.svg'
 import clsx from 'clsx'
-import BriefcaseIcon from '@/app/icons/briefcase.svg'
+import briefcaseIcon from '@/app/icons/briefcase.svg'
+import Image from 'next/image'
 
 // todo: code style
 
@@ -28,9 +29,11 @@ function ListInfo(props: ListInfoProps) {
         <Link href={`/lista/${list.id}`}>
             <Row key={list.id} className='gap-5 p-3 bg-violet-200 shadow-sm justify-between'>
                 {list.name}
-                <XMark
+                <Image
+                    src={XMark}
+                    alt="X"
                     className='cursor-pointer'
-                    onClick={ (e: Event) => (onRemove(), e.preventDefault())}
+                    onClick={ (e) => (onRemove(), e.preventDefault())}
                 />
             </Row>
         </Link>
@@ -80,7 +83,7 @@ export default function Home(props: Props) {
         <Col className="p-7 gap-10 bg-gray-100 text-gray-600 h-screen">
             <Col className="gap-7 self-stretch">
                 <Row className={`text-2xl gap-3`}>
-                    <BriefcaseIcon />
+                    <Image src={briefcaseIcon} alt="Briefcase" />
                     <span>My Lists</span>
                 </Row>
                 <Col className={clsx("gap-3", classes.widthLimits)}>

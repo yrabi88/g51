@@ -8,9 +8,10 @@ import Button from '@/app/components/basic/button/Button'
 import Row from '@/app/components/layout/Row'
 import Link from 'next/link'
 import { PropsWithChildren, useEffect, useState } from 'react'
-import XMark from '@/app/icons/x-mark.svg'
+import xMarkIcon from '@/app/icons/x-mark.svg'
 import Checkbox from '@/app/components/basic/checkbox/Checkbox'
 import clsx from 'clsx'
+import Image from 'next/image'
 
 // todo: code style
 
@@ -34,7 +35,12 @@ function renderItems(items: ListItem[], onRemoveItem: RemoveItemHandler, onItemC
                 <div>{item.title as string ?? 'noname'}</div>
                     <Row className="gap-2">
                     <Checkbox value={item.checked} onChange={(checked) => onItemCheckToggle(item.id, checked)} />
-                    <XMark className='cursor-pointer shrink-0' onClick={() => onRemoveItem(item.id)}/>
+                    <Image
+                        src={xMarkIcon}
+                        alt="X"
+                        className="cursor-pointer shrink-0"
+                        onClick={() => onRemoveItem(item.id)}
+                    />
                 </Row>
 
             </Row>
