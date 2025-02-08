@@ -1,8 +1,8 @@
 'use client'
 
 import Col from '@/app/components/layout/Col'
-import { ListItem } from '../types'
-import { addListItem, getListItems, removeListItem, setItemChecked } from '../serverActions'
+import { ListItem } from '@/app/lista/types'
+import { addListItem, getListItems, removeListItem, setItemChecked } from '@/app/lista/serverActions'
 import TextInput from '@/app/components/basic/textInput/TextInput'
 import Button from '@/app/components/basic/button/Button'
 import Row from '@/app/components/layout/Row'

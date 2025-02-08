@@ -26,7 +26,7 @@ interface ListInfoProps {
 function ListInfo(props: ListInfoProps) {
     const { list, onRemove } = props
     return (
-        <Link href={`/lista/${list.id}`}>
+        <Link href={`/lista/lists/${list.id}`}>
             <Row key={list.id} className='gap-5 p-3 bg-violet-200 shadow-sm justify-between'>
                 {list.name}
                 <Image
