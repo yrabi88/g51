@@ -6,24 +6,19 @@ import { addListItem, getListItems, removeListItem, setItemChecked } from '@/app
 import TextInput from '@/app/components/basic/textInput/TextInput'
 import Button from '@/app/components/basic/button/Button'
 import Row from '@/app/components/layout/Row'
-import Link from 'next/link'
-import { PropsWithChildren, useEffect, useState } from 'react'
+import { useEffect, useState } from 'react'
 import xMarkIcon from '@/app/icons/x-mark.svg'
 import Checkbox from '@/app/components/basic/checkbox/Checkbox'
 import clsx from 'clsx'
 import Image from 'next/image'
+import MainBreadcrumbs from '../../components/MainBreadcrumbs'
+import Title from '@/app/lista/components/Title'
 
 // todo: code style
 
 interface Props {
     listId: string
 }
-
-const Contr = (props: PropsWithChildren) => (
-    <Col className='p-5 bg-white h-screen text-gray-600 gap-3'>
-        {props.children}
-    </Col>
-)
 
 type RemoveItemHandler = (itemId: string) => unknown
 type ItemCheckChangeHandler = (itemId: string, checked: boolean) => unknown
@@ -80,17 +75,13 @@ export default function ListPage({listId}: Props)  {
 
     if (loading) {
         return (
-            <Contr>
-                <div className='text-xl'>Loading list data ...</div>
-            </Contr>
+            <div className='text-xl'>Loading list data ...</div>
         )
     }
 
     if (!listItems) {
         return (
-            <Contr>
-                <div className='text-xl'>Could not find list: { listId }</div>
-            </Contr>
+            <div className='text-xl'>Could not find list: { listId }</div>
         )
     }
 
@@ -116,14 +107,11 @@ export default function ListPage({listId}: Props)  {
     }
 
     return (
-        <Col className='p-5 bg-white h-screen bg-gray-100 text-gray-600 gap-3'>
+        <>
             <Col>
-                <Row className='text-md text-gray-500 gap-1'>
-                    <Link href="/lista">Lists</Link>
-                    <span>&gt;</span>
-                </Row>
+                <MainBreadcrumbs />
                 <Row className='gap-4 items-end'>
-                    <div className='text-4xl'>{listId}</div>
+                    <Title>{listId}</Title>
                     <span className={clsx('text-sm bg-amber-200 px-1 py-0.5 rounded', {'invisible': !fetching})}>Syncing</span>
                 </Row>
             </Col>
@@ -158,6 +146,6 @@ export default function ListPage({listId}: Props)  {
                     <Button className='self-end sm:h-[42px]' disabled={!itemTitle} type="submit">Create Item</Button>
                 </div>
             </form>
-        </Col>
+        </>
     )
 }
