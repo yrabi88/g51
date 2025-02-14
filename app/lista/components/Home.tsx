@@ -81,7 +81,7 @@ export default function Home(props: Props) {
     }
     
     return (
-        <>
+        <Col className="gap-4">
             <Col className="gap-7 self-stretch">
                 <Row className={`text-2xl gap-3`}>
                     <Image src={briefcaseIcon} alt="Briefcase" />
@@ -108,6 +108,6 @@ export default function Home(props: Props) {
                 </Link>
             </Col>
         
-        </>
+        </Col>
     )
 }
