@@ -82,12 +82,12 @@ export default function Home(props: Props) {
     
     return (
         <Col className="gap-4">
-            <Col className="gap-7 self-stretch">
-                <Row className={`text-2xl gap-3`}>
+            <Col className="gap-5 self-stretch">
+                <Row className={`text-2xl gap-2 md:gap-3`}>
                     <Image src={briefcaseIcon} alt="Briefcase" />
                     <span>My Lists</span>
                 </Row>
-                <Col className={clsx("gap-3", classes.widthLimits)}>
+                <Col className={clsx("gap-3 max-h-[70vh] overflow-y-auto", classes.widthLimits)}>
                     { lists.map((list) => {
                         return (
                             <ListInfo
@@ -102,7 +102,7 @@ export default function Home(props: Props) {
             <Col className={clsx("gap-2", classes.widthLimits)}>
                 {/* <TextInput label="List Name" value={newListName} onChange={e => setNewListName(e.target.value)} /> */}
                 <Link href="/lista/manage/lists/create" className="self-start">
-                    <Button className={`text-md bg-gray-500`}>
+                    <Button>
                         Create List
                     </Button>
                 </Link>

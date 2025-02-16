@@ -19,6 +19,9 @@ users: collection<user>
     listIds: string[] (fk -> lists.id)
 ```
 
+chatgpt convo about firebase subcollections:
+https://chatgpt.com/c/67af453e-ac70-800a-8a95-51e06f85ee50
+
 ## Auth0
 
 quickstart v2:

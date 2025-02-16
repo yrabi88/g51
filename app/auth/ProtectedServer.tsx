@@ -13,10 +13,12 @@ interface Props {
 
 export default async function ProtectedServer({ render }: Props) {
     const session = await auth0.getSession()
-    if (!session) return <LoginSection />
+    if (!session) return (
+        <LoginSection />
+    )
     return (
         <Col>
-            <Row className="p-3 justify-between items-center gap-3">
+            <Row className="px-2 py-2 md:px-5 md:py-3 justify-between items-center gap-3 bg-white">
                 <div>Buonvenite, <b>{session.user.nickname}</b>!</div>
                 <a href={ authRoutes.logout }>
                     <Button>Log out</Button>
