@@ -22,6 +22,14 @@ users: collection<user>
 chatgpt convo about firebase subcollections:
 https://chatgpt.com/c/67af453e-ac70-800a-8a95-51e06f85ee50
 
+## Firestore
+
+Manage:  
+https://console.cloud.google.com/firestore/databases/garage51-db/data/panel/lista_lists/feature_ideas?inv=1&invt=AbqxGg&project=garage51  
+
+Docs:  
+https://firebase.google.com/docs/firestore/query-data/queries  
+
 ## Auth0
 
 quickstart v2:

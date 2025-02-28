@@ -1,5 +1,6 @@
 import { firestore } from '@/app/lib/firestore'
 
+const g51UsersRef = firestore.collection('g51_users') // todo: move to g51Db file
 const listsRef = firestore.collection('lista_lists')
 const listItemsRef = firestore.collection('lista_list_items')
 
@@ -25,8 +26,40 @@ function listFromDoc(docId: string, docData: ListDocData): List {
     }
 }
 
-async function getAllLists(): Promise<List[]> {
-    const querySnap = await listsRef.get()
+interface User {
+    // todo: move to g51 types file
+    id: string;
+}
+
+async function getUser(userEmail: string): Promise<User> {
+    // todo: code style
+    // todo: create AppServerError class
+    const querySnap = await g51UsersRef.where('email', '==', userEmail).get()
+    if (querySnap.size == 0) {
+        throw Error('Email not found: ' + userEmail)
+    }
+    if (querySnap.size > 1) {
+        throw Error('Email ambigous: ' + userEmail)
+    }
+    let user: User | undefined
+    querySnap.forEach(docSnap => {
+        
+        const docData = docSnap.data()
+        if (docData) {
+            user = docData as User
+            user.id = docSnap.id
+        }
+    })
+    if (!user) {
+        throw Error('User not found: ' + userEmail)
+    }
+    return user
+}
+
+async function getAllLists(userEmail: string): Promise<List[]> {
+    const user = await getUser(userEmail)
+    // console.log('fetched user', { user })
+    const querySnap = await listsRef.where('user_id', '==', user.id).get()
     const lists: List[] = []
     querySnap.forEach(docSnap => {
         const docData = docSnap.data()

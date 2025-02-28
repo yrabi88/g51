@@ -4,8 +4,8 @@ import { List, ListItem, NewList } from './types'
 import { revalidatePath } from 'next/cache'
 import db from './lib/listaDb'
 
-export async function getAllLists(): Promise<List[]> {
-    return db.getAllLists()
+export async function getAllLists(userEmail: string): Promise<List[]> {
+    return db.getAllLists(userEmail)
 }
 
 export async function createList(newList: NewList): Promise<List> {

@@ -33,8 +33,8 @@ function renderFields(
 ) {
     return fields.map(fld => {
         return (
-            <Row key={fld.tempId} className="gap-3 p-3 flex-wrap bg-slate-200">
-                <Image src={xMarkIcon} alt="X" className="mt-[14px] cursor-pointer" onClick={() => onFieldRemove(fld.tempId)} />
+            <Row key={fld.tempId} className="relative gap-3 p-3 flex-wrap bg-slate-200">
+                <Image src={xMarkIcon} alt="X" className="absolute -top-[10px] right-[1px] mt-[14px] cursor-pointer" onClick={() => onFieldRemove(fld.tempId)} />
                 <TextInput label="Name" value={fld.name} onChange={e => onFieldChange({ ...fld, name: e.target.value })} />
                 <Dropdown
                     label="Type"
